@@ -8,48 +8,53 @@ export default function App() {
   const [anggota, setAnggota] = useState([
     {
       id: 1,
-      nama: "WAHYUDI PRATAMA",
+      nama: "KETUA FAMILY",
       role: "ketua",
+      idTikTok: "@ketua",
       berlian: 0,
       jamLive: 0,
-      warna: "#35b8ff",
     },
   ]);
 
   const [liveList, setLiveList] = useState([]);
-  const [nama, setNama] = useState("");
-  const [idTikTok, setIdTikTok] = useState("");
+  const [chat, setChat] = useState([]);
+  const [kodeUndangan, setKodeUndangan] = useState("");
+
+  const [namaAnggota, setNamaAnggota] = useState("");
+  const [idTikTokBaru, setIdTikTokBaru] = useState("");
+  const [roleAnggota, setRoleAnggota] = useState("anggota");
+
+  const [namaLive, setNamaLive] = useState("");
+  const [idLive, setIdLive] = useState("");
   const [jamLive, setJamLive] = useState("");
   const [berlian, setBerlian] = useState("");
 
-  const [namaAnggota, setNamaAnggota] = useState("");
-  const [roleAnggota, setRoleAnggota] = useState("anggota");
-  const [kodeUndangan, setKodeUndangan] = useState("");
-  const [chat, setChat] = useState([]);
   const [pesan, setPesan] = useState("");
 
   const isKetua = user?.role === "ketua";
   const isAdmin = user?.role === "admin";
   const canManage = isKetua || isAdmin;
 
-  const totalBerlian = useMemo(
-    () => liveList.reduce((total, item) => total + Number(item.berlian || 0), 0),
-    [liveList]
-  );
+  const totalBerlian = useMemo(() => {
+    return anggota.reduce((total, item) => total + item.berlian, 0);
+  }, [anggota]);
 
-  const totalJam = useMemo(
-    () => liveList.reduce((total, item) => total + Number(item.jamLive || 0), 0),
-    [liveList]
-  );
+  const totalJam = useMemo(() => {
+    return anggota.reduce((total, item) => total + item.jamLive, 0);
+  }, [anggota]);
+
+  const ranking = useMemo(() => {
+    return [...anggota].sort((a, b) => b.berlian - a.berlian);
+  }, [anggota]);
 
   function login(role) {
+    let nama = "ANGGOTA FAMILY";
+
+    if (role === "ketua") nama = "KETUA FAMILY";
+    if (role === "admin") nama = "ADMIN FAMILY";
+
     setUser({
-      nama:
-        role === "ketua"
-          ? "WAHYUDI PRATAMA"
-          : role === "admin"
-          ? "ADMIN FAMILY"
-          : "ANGGOTA FAMILY",
+      nama,
       role,
     });
 
@@ -62,76 +67,116 @@ export default function App() {
   }
 
   function tambahAnggota() {
+    if (!canManage) return;
+
     if (!namaAnggota.trim()) {
-      alert("Masukkan nama anggota terlebih dahulu");
+      alert("Masukkan nama anggota");
       return;
     }
 
     const anggotaBaru = {
       id: Date.now(),
       nama: namaAnggota,
+      idTikTok: idTikTokBaru || "@belum_diisi",
       role: roleAnggota,
       berlian: 0,
       jamLive: 0,
-      warna: "#35b8ff",
     };
 
-    setAnggota([...anggota, anggotaBaru]);
+    setAnggota((data) => [...data, anggotaBaru]);
+
     setNamaAnggota("");
+    setIdTikTokBaru("");
     setRoleAnggota("anggota");
+
     alert("Anggota berhasil ditambahkan");
   }
 
+  function hapusAnggota(id) {
+    if (!canManage || !isKetua) return;
+
+    setAnggota((data) =>
+      data.filter((item) => item.id !== id || item.role === "ketua")
+    );
+  }
+
   function buatUndangan() {
+    if (!canManage) {
+      alert("Hanya Ketua dan Admin yang dapat membuat undangan");
+      return;
+    }
+
     const kode =
-      "FAMILY-" + Math.random().toString(36).substring(2, 8).toUpperCase();
+      "FAMILY-" +
+      Math.random().toString(36).substring(2, 8).toUpperCase();
 
     setKodeUndangan(kode);
   }
 
   function catatLive() {
-    if (!nama.trim() || !idTikTok.trim()) {
-      alert("Nama dan ID TikTok wajib diisi");
+    if (!namaLive.trim()) {
+      alert("Masukkan nama anggota");
       return;
     }
 
-    const dataBaru = {
+    const jam = Number(jamLive || 0);
+    const jumlahBerlian = Number(berlian || 0);
+
+    const dataLive = {
       id: Date.now(),
-      nama,
-      idTikTok,
-      jamLive: Number(jamLive || 0),
-      berlian: Number(berlian || 0),
-      waktu: new Date().toLocaleString("id-ID"),
+      nama: namaLive,
+      idTikTok: idLive || "@belum_diisi",
+      jamLive: jam,
+      berlian: jumlahBerlian,
+      tanggal: new Date().toLocaleString("id-ID"),
     };
 
-    setLiveList([dataBaru, ...liveList]);
+    setLiveList((data) => [dataLive, ...data]);
 
-    setAnggota((data) =>
-      data.map((item) =>
-        item.nama.toLowerCase() === nama.toLowerCase()
-          ? {
-              ...item,
-              berlian: item.berlian + Number(berlian || 0),
-              jamLive: item.jamLive + Number(jamLive || 0),
-            }
-          : item
-      )
-    );
+    setAnggota((data) => {
+      const ditemukan = data.some(
+        (item) =>
+          item.nama.toLowerCase() === namaLive.toLowerCase()
+      );
 
-    setNama("");
-    setIdTikTok("");
+      if (ditemukan) {
+        return data.map((item) =>
+          item.nama.toLowerCase() === namaLive.toLowerCase()
+            ? {
+                ...item,
+                berlian: item.berlian + jumlahBerlian,
+                jamLive: item.jamLive + jam,
+              }
+            : item
+        );
+      }
+
+      return [
+        ...data,
+        {
+          id: Date.now() + 1,
+          nama: namaLive,
+          idTikTok: idLive || "@belum_diisi",
+          role: "anggota",
+          berlian: jumlahBerlian,
+          jamLive: jam,
+        },
+      ];
+    });
+
+    setNamaLive("");
+    setIdLive("");
     setJamLive("");
     setBerlian("");
 
-    alert("Live berhasil dicatat");
-    setActiveTab("riwayat");
+    alert("Data live berhasil disimpan");
   }
 
   function kirimPesan() {
     if (!pesan.trim()) return;
 
-    setChat([
-      ...chat,
+    setChat((data) => [
+      ...data,
       {
         id: Date.now(),
         nama: user.nama,
@@ -146,46 +191,53 @@ export default function App() {
     setPesan("");
   }
 
+  function bonusAnggota(item) {
+    const bonus =
+      item.berlian >= 10000
+        ? "BONUS BESAR"
+        : item.berlian >= 5000
+        ? "BONUS MENENGAH"
+        : item.berlian >= 1000
+        ? "BONUS DASAR"
+        : "BELUM ADA BONUS";
+
+    return bonus;
+  }
+
   if (!user) {
     return (
       <div className="login-page">
         <div className="login-box">
-          <h1>👑 FAMILY TIKTOK</h1>
+          <h1>👑 FAMILY</h1>
           <p>LIVE • 💎 BERLIAN • 🏆 RANKING</p>
 
           <h2>Masuk sebagai</h2>
 
           <button onClick={() => login("ketua")}>
-            👑 Masuk Ketua
+            👑 Masuk sebagai Ketua
           </button>
 
           <button onClick={() => login("admin")}>
-            🛡️ Masuk Admin
+            🛡️ Masuk sebagai Admin
           </button>
 
           <button onClick={() => login("anggota")}>
-            👤 Masuk Anggota
+            👤 Masuk sebagai Anggota
           </button>
         </div>
       </div>
     );
   }
 
-  const ranking = [...anggota].sort(
-    (a, b) => Number(b.berlian) - Number(a.berlian)
-  );
-
   return (
     <div className="container">
       <header className="header">
-        <h1>👑 FAMILY TIKTOK</h1>
-        <p>
-          🎥 LIVE • 💎 BERLIAN • 🏆 RANKING
-        </p>
+        <h1>👑 FAMILY</h1>
+        <p>📹 LIVE • 💎 BERLIAN • 🏆 RANKING</p>
 
         <div className="user-info">
-          👤 {user.nama}
-          <span className={"role " + user.role}>
+          <span>👤 {user.nama}</span>
+          <span className={`role ${user.role}`}>
             {user.role.toUpperCase()}
           </span>
         </div>
@@ -197,7 +249,7 @@ export default function App() {
           <>
             <div className="welcome">
               <h2>Halo, {user.nama} 👋</h2>
-              <p>Dashboard Family TikTok</p>
+              <p>Selamat datang di Dashboard Family</p>
             </div>
 
             <div className="cards">
@@ -213,7 +265,7 @@ export default function App() {
 
               <div className="card">
                 <strong>{liveList.length}</strong>
-                <span>🎥 Total Live</span>
+                <span>📹 Total Live</span>
               </div>
 
               <div className="card">
@@ -235,8 +287,8 @@ export default function App() {
             </section>
 
             {canManage && (
-              <section className="panel manage-box">
-                <h2>⚙️ Menu Pengelolaan</h2>
+              <section className="panel">
+                <h2>⚙️ Pengelolaan Family</h2>
 
                 <button
                   onClick={() => setActiveTab("anggota")}
@@ -263,17 +315,33 @@ export default function App() {
                 <input
                   placeholder="Nama anggota"
                   value={namaAnggota}
-                  onChange={(e) => setNamaAnggota(e.target.value)}
+                  onChange={(e) =>
+                    setNamaAnggota(e.target.value)
+                  }
+                />
+
+                <input
+                  placeholder="ID TikTok"
+                  value={idTikTokBaru}
+                  onChange={(e) =>
+                    setIdTikTokBaru(e.target.value)
+                  }
                 />
 
                 <select
                   value={roleAnggota}
-                  onChange={(e) => setRoleAnggota(e.target.value)}
+                  onChange={(e) =>
+                    setRoleAnggota(e.target.value)
+                  }
                 >
-                  <option value="anggota">👤 Anggota</option>
+                  <option value="anggota">
+                    👤 Anggota
+                  </option>
 
                   {isKetua && (
-                    <option value="admin">🛡️ Admin</option>
+                    <option value="admin">
+                      🛡️ Admin
+                    </option>
                   )}
                 </select>
 
@@ -288,6 +356,7 @@ export default function App() {
                 <div className="anggota-row" key={item.id}>
                   <div>
                     <strong>{item.nama}</strong>
+                    <p>🎵 {item.idTikTok}</p>
                     <p>
                       {item.role === "ketua"
                         ? "👑 Ketua"
@@ -297,8 +366,20 @@ export default function App() {
                     </p>
                   </div>
 
-                  <div>
-                    💎 {item.berlian}
+                  <div className="anggota-data">
+                    <strong>💎 {item.berlian}</strong>
+
+                    {isKetua &&
+                      item.role !== "ketua" && (
+                        <button
+                          className="hapus"
+                          onClick={() =>
+                            hapusAnggota(item.id)
+                          }
+                        >
+                          Hapus
+                        </button>
+                      )}
                   </div>
                 </div>
               ))}
@@ -311,7 +392,8 @@ export default function App() {
             <h2>📨 Undangan Family</h2>
 
             <p>
-              Hanya Ketua dan Admin yang dapat membuat undangan.
+              Halaman ini hanya dapat digunakan oleh Ketua
+              dan Admin.
             </p>
 
             <button onClick={buatUndangan}>
@@ -320,9 +402,11 @@ export default function App() {
 
             {kodeUndangan && (
               <div className="invite-code">
-                <p>Kode Undangan:</p>
+                <p>Kode Undangan</p>
                 <h2>{kodeUndangan}</h2>
-                <p>Bagikan kode ini kepada anggota baru.</p>
+                <p>
+                  Bagikan kode ini kepada anggota baru.
+                </p>
               </div>
             )}
           </section>
@@ -330,37 +414,45 @@ export default function App() {
 
         {activeTab === "live" && (
           <section className="panel">
-            <h2>🎥 Catat Live</h2>
+            <h2>📹 Catat Live</h2>
 
             <div className="form-box">
               <input
-                placeholder="Nama"
-                value={nama}
-                onChange={(e) => setNama(e.target.value)}
+                placeholder="Nama anggota"
+                value={namaLive}
+                onChange={(e) =>
+                  setNamaLive(e.target.value)
+                }
               />
 
               <input
                 placeholder="ID TikTok"
-                value={idTikTok}
-                onChange={(e) => setIdTikTok(e.target.value)}
+                value={idLive}
+                onChange={(e) =>
+                  setIdLive(e.target.value)
+                }
               />
 
               <input
                 type="number"
-                placeholder="Jam Live"
+                placeholder="Durasi Live (Jam)"
                 value={jamLive}
-                onChange={(e) => setJamLive(e.target.value)}
+                onChange={(e) =>
+                  setJamLive(e.target.value)
+                }
               />
 
               <input
                 type="number"
                 placeholder="Jumlah Berlian"
                 value={berlian}
-                onChange={(e) => setBerlian(e.target.value)}
+                onChange={(e) =>
+                  setBerlian(e.target.value)
+                }
               />
 
               <button onClick={catatLive}>
-                💾 Simpan Catatan Live
+                💾 Simpan Data Live
               </button>
             </div>
           </section>
@@ -373,7 +465,13 @@ export default function App() {
             {ranking.map((item, index) => (
               <div className="ranking-row" key={item.id}>
                 <span className="rank">
-                  {index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : `#${index + 1}`}
+                  {index === 0
+                    ? "🥇"
+                    : index === 1
+                    ? "🥈"
+                    : index === 2
+                    ? "🥉"
+                    : `#${index + 1}`}
                 </span>
 
                 <div>
@@ -393,13 +491,59 @@ export default function App() {
           </section>
         )}
 
+        {activeTab === "riwayat" && (
+          <section className="panel">
+            <h2>📜 Riwayat Live</h2>
+
+            {liveList.length === 0 ? (
+              <p className="empty">
+                Belum ada riwayat live.
+              </p>
+            ) : (
+              liveList.map((item) => (
+                <div className="history-row" key={item.id}>
+                  <strong>📹 {item.nama}</strong>
+                  <p>🎵 {item.idTikTok}</p>
+                  <p>
+                    ⏱️ {item.jamLive} Jam • 💎{" "}
+                    {item.berlian}
+                  </p>
+                  <small>{item.tanggal}</small>
+                </div>
+              ))
+            )}
+          </section>
+        )}
+
+        {activeTab === "bonus" && (
+          <section className="panel">
+            <h2>🎁 Bonus Anggota</h2>
+
+            {anggota.map((item) => (
+              <div className="bonus-row" key={item.id}>
+                <div>
+                  <strong>{item.nama}</strong>
+                  <p>
+                    💎 {item.berlian} • ⏱️{" "}
+                    {item.jamLive} Jam
+                  </p>
+                </div>
+
+                <strong>{bonusAnggota(item)}</strong>
+              </div>
+            ))}
+          </section>
+        )}
+
         {activeTab === "chat" && (
           <section className="panel chat-panel">
             <h2>💬 Ruang Chat Family</h2>
 
             <div className="chat-list">
               {chat.length === 0 && (
-                <p className="empty">Belum ada pesan.</p>
+                <p className="empty">
+                  Belum ada pesan.
+                </p>
               )}
 
               {chat.map((item) => (
@@ -415,35 +559,18 @@ export default function App() {
               <input
                 placeholder="Tulis pesan..."
                 value={pesan}
-                onChange={(e) => setPesan(e.target.value)}
+                onChange={(e) =>
+                  setPesan(e.target.value)
+                }
                 onKeyDown={(e) => {
                   if (e.key === "Enter") kirimPesan();
                 }}
               />
 
-              <button onClick={kirimPesan}>➤</button>
+              <button onClick={kirimPesan}>
+                ➤
+              </button>
             </div>
-          </section>
-        )}
-
-        {activeTab === "riwayat" && (
-          <section className="panel">
-            <h2>📜 Riwayat Live</h2>
-
-            {liveList.length === 0 && (
-              <p className="empty">Belum ada riwayat live.</p>
-            )}
-
-            {liveList.map((item) => (
-              <div className="history-row" key={item.id}>
-                <strong>{item.nama}</strong>
-                <p>🎵 @{item.idTikTok}</p>
-                <p>
-                  ⏱️ {item.jamLive} jam • 💎 {item.berlian}
-                </p>
-                <small>{item.waktu}</small>
-              </div>
-            ))}
           </section>
         )}
 
@@ -466,25 +593,31 @@ export default function App() {
             <div className="profile-stats">
               <div>
                 <strong>{totalBerlian}</strong>
-                <span>💎 Berlian</span>
+                <span>💎 Berlian Family</span>
               </div>
 
               <div>
                 <strong>{totalJam}</strong>
-                <span>⏱️ Jam Live</span>
+                <span>⏱️ Jam Live Family</span>
               </div>
             </div>
 
-            <button className="logout" onClick={logout}>
+            <button
+              className="logout"
+              onClick={logout}
+            >
               🚪 Keluar
             </button>
           </section>
         )}
+
       </main>
 
       <nav className="bottom-nav">
         <button
-          className={activeTab === "dashboard" ? "active" : ""}
+          className={
+            activeTab === "dashboard" ? "active" : ""
+          }
           onClick={() => setActiveTab("dashboard")}
         >
           💎
@@ -492,7 +625,9 @@ export default function App() {
         </button>
 
         <button
-          className={activeTab === "anggota" ? "active" : ""}
+          className={
+            activeTab === "anggota" ? "active" : ""
+          }
           onClick={() => setActiveTab("anggota")}
         >
           👥
@@ -500,15 +635,19 @@ export default function App() {
         </button>
 
         <button
-          className={activeTab === "live" ? "active" : ""}
+          className={
+            activeTab === "live" ? "active" : ""
+          }
           onClick={() => setActiveTab("live")}
         >
-          🎥
-          <span>Catat Live</span>
+          📹
+          <span>Live</span>
         </button>
 
         <button
-          className={activeTab === "ranking" ? "active" : ""}
+          className={
+            activeTab === "ranking" ? "active" : ""
+          }
           onClick={() => setActiveTab("ranking")}
         >
           🏆
@@ -516,15 +655,9 @@ export default function App() {
         </button>
 
         <button
-          className={activeTab === "chat" ? "active" : ""}
-          onClick={() => setActiveTab("chat")}
-        >
-          💬
-          <span>Chat</span>
-        </button>
-
-        <button
-          className={activeTab === "riwayat" ? "active" : ""}
+          className={
+            activeTab === "riwayat" ? "active" : ""
+          }
           onClick={() => setActiveTab("riwayat")}
         >
           📜
@@ -532,7 +665,29 @@ export default function App() {
         </button>
 
         <button
-          className={activeTab === "profil" ? "active" : ""}
+          className={
+            activeTab === "bonus" ? "active" : ""
+          }
+          onClick={() => setActiveTab("bonus")}
+        >
+          🎁
+          <span>Bonus</span>
+        </button>
+
+        <button
+          className={
+            activeTab === "chat" ? "active" : ""
+          }
+          onClick={() => setActiveTab("chat")}
+        >
+          💬
+          <span>Chat</span>
+        </button>
+
+        <button
+          className={
+            activeTab === "profil" ? "active" : ""
+          }
           onClick={() => setActiveTab("profil")}
         >
           👤
