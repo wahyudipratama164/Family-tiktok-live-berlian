@@ -1,76 +1,59 @@
-App.css
-
 * {
   box-sizing: border-box;
 }
 
-html,
-body,
-#root {
-  margin: 0;
-  min-width: 100%;
-  min-height: 100%;
-}
-
 body {
+  margin: 0;
   font-family: Arial, sans-serif;
-  background: #0b1726;
-  color: #ffffff;
+  background: #0d1b2a;
+  color: white;
 }
 
 .container {
-  width: 100%;
+  max-width: 700px;
   min-height: 100vh;
-  background: #0b1726;
+  margin: auto;
+  background: #0d1b2a;
   padding-bottom: 90px;
 }
 
-/* HEADER */
-
 .header {
-  padding: 20px;
-  background: #14263b;
-  border-bottom: 1px solid #294765;
+  background: #172c45;
+  padding: 25px 20px;
+  border-bottom: 1px solid #284866;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: bold;
 }
 
 .header p {
   margin: 8px 0 0;
-  font-size: 14px;
-  color: #b8c7d9;
+  color: #b7c5d6;
+  font-size: 15px;
 }
-
-/* MAIN */
 
 .main {
   padding: 20px;
-  max-width: 700px;
-  margin: auto;
 }
 
 .main h2 {
   margin-top: 0;
-  font-size: 24px;
 }
-
-/* CARDS */
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
   margin-bottom: 20px;
 }
 
 .card {
-  background: #14263b;
-  border: 1px solid #315a7d;
-  border-radius: 22px;
+  background: #162b40;
+  border: 1px solid #315a7c;
+  border-radius: 20px;
   padding: 20px;
   min-height: 130px;
   display: flex;
@@ -79,82 +62,71 @@ body {
 }
 
 .card strong {
-  font-size: 34px;
-  color: #58d5ff;
+  color: #55d6f2;
+  font-size: 38px;
   margin-bottom: 10px;
 }
 
 .card span {
-  font-size: 17px;
-  color: #b8c7d9;
+  color: #c2cad4;
+  font-size: 16px;
 }
 
-/* PANEL */
-
 .panel {
-  background: #14263b;
-  border: 1px solid #315a7d;
-  border-radius: 22px;
+  background: #162b40;
+  border: 1px solid #315a7c;
+  border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
 }
 
-.panel h2,
-.panel h3 {
+.panel h2 {
   margin-top: 0;
 }
 
 .panel p {
-  color: #b8c7d9;
+  color: #b7c5d6;
 }
-
-/* INPUT */
 
 input {
   width: 100%;
   padding: 15px;
   margin-bottom: 12px;
+  border: 1px solid #315a7c;
   border-radius: 12px;
-  border: 1px solid #315a7d;
-  background: #0d1d2e;
+  background: #0d1b2a;
   color: white;
   font-size: 16px;
 }
 
 input::placeholder {
-  color: #7f91a5;
+  color: #8495a7;
 }
-
-/* BUTTON */
 
 button {
   border: none;
   border-radius: 12px;
-  padding: 14px 18px;
-  font-size: 15px;
-  font-weight: bold;
+  padding: 14px;
+  font-size: 16px;
   cursor: pointer;
-  background: #28b6e6;
+}
+
+.panel > button {
+  width: 100%;
+  background: #1d9bf0;
   color: white;
+  font-weight: bold;
 }
-
-button:active {
-  transform: scale(0.98);
-}
-
-/* LIST */
 
 .list {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 15px;
-  padding: 15px 0;
-  border-bottom: 1px solid #294765;
-}
-
-.list:last-child {
-  border-bottom: none;
+  align-items: center;
+  background: #102337;
+  border: 1px solid #274965;
+  padding: 15px;
+  border-radius: 14px;
+  margin-top: 10px;
 }
 
 .list p {
@@ -162,46 +134,50 @@ button:active {
 }
 
 .hapus {
-  background: #d94b4b;
-  padding: 10px 15px;
+  background: #e74c3c;
+  color: white;
+  padding: 10px 14px;
 }
-
-/* BOTTOM NAVIGATION */
 
 .bottom-nav {
   position: fixed;
-  left: 0;
   bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  background: #0d1d2e;
-  border-top: 1px solid #315a7d;
-  z-index: 100;
+  max-width: 700px;
+  display: flex;
+  justify-content: space-around;
+  background: #0d1b2a;
+  border-top: 1px solid #315a7c;
+  padding: 12px 5px;
 }
 
 .bottom-nav button {
   background: transparent;
-  border-radius: 0;
-  padding: 13px 5px;
-  color: #b8c7d9;
-  font-size: 12px;
-  line-height: 1.7;
+  color: #c2cad4;
+  padding: 8px 5px;
+  font-size: 13px;
+  flex: 1;
 }
 
-.bottom-nav button:active {
-  background: #14263b;
+.bottom-nav button:hover {
+  color: #55d6f2;
 }
 
 /* MOBILE */
 
 @media (max-width: 480px) {
   .header {
-    padding: 18px;
+    padding: 25px 20px;
   }
 
   .header h1 {
-    font-size: 20px;
+    font-size: 24px;
+  }
+
+  .header p {
+    font-size: 15px;
   }
 
   .main {
@@ -209,23 +185,28 @@ button:active {
   }
 
   .cards {
-    gap: 12px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
   }
 
   .card {
-    min-height: 120px;
-    padding: 15px;
+    min-height: 145px;
+    padding: 20px;
   }
 
   .card strong {
-    font-size: 30px;
+    font-size: 42px;
   }
 
   .card span {
-    font-size: 15px;
+    font-size: 17px;
   }
 
-  .panel {
-    padding: 16px;
+  .cards .card:nth-child(3) {
+    grid-column: span 2;
   }
+
+  .bottom-nav button {
+    font-size: 11px;
   }
+}
