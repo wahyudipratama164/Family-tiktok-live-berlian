@@ -12,18 +12,22 @@ body,
 body {
   font-family: Arial, sans-serif;
   background: #071522;
-  color: #ffffff;
+  color: white;
 }
 
-/* =========================
-   LOGIN
-========================= */
+button,
+input,
+select {
+  font-family: inherit;
+}
+
+/* LOGIN */
 
 .login-page {
   min-height: 100vh;
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   padding: 20px;
   background: #071522;
 }
@@ -31,63 +35,55 @@ body {
 .login-box {
   width: 100%;
   max-width: 420px;
-  padding: 30px 22px;
   background: #10283d;
   border: 1px solid #315a78;
-  border-radius: 25px;
+  border-radius: 24px;
+  padding: 30px 22px;
   text-align: center;
 }
 
 .login-box h1 {
   margin: 0;
-  font-size: 26px;
+  font-size: 28px;
 }
 
 .login-box p {
   color: #9db4c7;
-  margin-bottom: 30px;
+  margin: 10px 0 28px;
 }
 
 .login-box h2 {
   font-size: 20px;
-  margin-bottom: 20px;
 }
 
 .login-box button {
   width: 100%;
-  margin-bottom: 12px;
+  margin-top: 12px;
 }
 
-/* =========================
-   CONTAINER
-========================= */
+/* APLIKASI */
 
 .container {
-  width: 100%;
   min-height: 100vh;
   background: #071522;
-  padding-bottom: 95px;
+  padding-bottom: 90px;
 }
 
-/* =========================
-   HEADER
-========================= */
-
 .header {
-  padding: 22px 20px;
   background: #10283d;
   border-bottom: 1px solid #315a78;
+  padding: 20px;
 }
 
 .header h1 {
   margin: 0;
-  font-size: 24px;
+  font-size: 25px;
 }
 
 .header > p {
   margin: 8px 0 15px;
-  color: #9db4c7;
   font-size: 13px;
+  color: #9db4c7;
 }
 
 .user-info {
@@ -95,39 +91,33 @@ body {
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-  font-size: 14px;
-  font-weight: bold;
 }
 
 .role {
   padding: 5px 10px;
   border-radius: 20px;
   font-size: 11px;
+  font-weight: bold;
 }
 
 .role.ketua {
-  background: #d9a900;
-  color: #ffffff;
+  background: #d8a800;
 }
 
 .role.admin {
-  background: #2489d8;
-  color: #ffffff;
+  background: #168fd1;
 }
 
 .role.anggota {
   background: #315a78;
-  color: #ffffff;
 }
 
-/* =========================
-   MAIN
-========================= */
+/* MAIN */
 
 .main {
   max-width: 800px;
   margin: auto;
-  padding: 20px;
+  padding: 18px;
 }
 
 .welcome {
@@ -136,7 +126,6 @@ body {
 
 .welcome h2 {
   margin: 0 0 5px;
-  font-size: 23px;
 }
 
 .welcome p {
@@ -144,56 +133,48 @@ body {
   color: #9db4c7;
 }
 
-/* =========================
-   CARDS
-========================= */
+/* CARD */
 
 .cards {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 14px;
+  gap: 12px;
   margin-bottom: 20px;
 }
 
 .card {
-  min-height: 130px;
-  padding: 18px;
   background: #10283d;
   border: 1px solid #315a78;
-  border-radius: 20px;
+  border-radius: 18px;
+  padding: 18px;
+  min-height: 120px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .card strong {
-  font-size: 32px;
   color: #46c8ff;
-  margin-bottom: 10px;
+  font-size: 30px;
+  margin-bottom: 8px;
 }
 
 .card span {
-  font-size: 14px;
   color: #b7c8d7;
+  font-size: 13px;
 }
 
-/* =========================
-   PANEL
-========================= */
+/* PANEL */
 
 .panel {
   background: #10283d;
   border: 1px solid #315a78;
-  border-radius: 20px;
-  padding: 20px;
-  margin-bottom: 20px;
+  border-radius: 18px;
+  padding: 18px;
+  margin-bottom: 18px;
 }
 
 .panel h2 {
-  margin-top: 0;
-}
-
-.panel h3 {
   margin-top: 0;
 }
 
@@ -201,19 +182,17 @@ body {
   color: #b7c8d7;
 }
 
-/* =========================
-   INPUT & SELECT
-========================= */
+/* INPUT */
 
 input,
 select {
   width: 100%;
-  padding: 14px;
-  margin-bottom: 12px;
-  border: 1px solid #315a78;
-  border-radius: 12px;
   background: #091d2e;
   color: white;
+  border: 1px solid #315a78;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
   font-size: 15px;
 }
 
@@ -225,32 +204,33 @@ select option {
   background: #10283d;
 }
 
-/* =========================
-   BUTTON
-========================= */
+/* BUTTON */
 
 button {
+  background: #169bd5;
+  color: white;
   border: none;
   border-radius: 12px;
-  padding: 14px 16px;
-  background: #169bd5;
-  color: #ffffff;
-  font-size: 15px;
+  padding: 13px 16px;
+  font-size: 14px;
   font-weight: bold;
   cursor: pointer;
+  margin-bottom: 8px;
 }
 
 button:active {
   transform: scale(0.98);
 }
 
-.form-box > button {
+.form-box button {
   width: 100%;
 }
 
-/* =========================
-   RANKING
-========================= */
+.hapus {
+  background: #c43e4b;
+}
+
+/* RANKING */
 
 .ranking-row {
   display: flex;
@@ -266,7 +246,7 @@ button:active {
 
 .ranking-row > span:first-child {
   min-width: 40px;
-  font-size: 18px;
+  font-weight: bold;
 }
 
 .ranking-row > strong {
@@ -279,26 +259,15 @@ button:active {
 
 .ranking-row p {
   margin: 4px 0 0;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .rank {
-  min-width: 45px;
+  min-width: 42px;
   font-size: 22px;
 }
 
-/* =========================
-   MENU KELOLA
-========================= */
-
-.manage-box button {
-  width: 100%;
-  margin-top: 10px;
-}
-
-/* =========================
-   ANGGOTA
-========================= */
+/* ANGGOTA */
 
 .anggota-list {
   margin-top: 20px;
@@ -307,26 +276,33 @@ button:active {
 .anggota-row {
   display: flex;
   justify-content: space-between;
+  gap: 10px;
   align-items: center;
   background: #0b2032;
   border: 1px solid #284b66;
   border-radius: 14px;
-  padding: 15px;
+  padding: 14px;
   margin-bottom: 10px;
 }
 
 .anggota-row p {
   margin: 5px 0 0;
-  font-size: 13px;
+  font-size: 12px;
 }
 
-/* =========================
-   UNDANGAN
-========================= */
+.anggota-data {
+  text-align: right;
+}
+
+.anggota-data button {
+  margin-top: 8px;
+}
+
+/* UNDANGAN */
 
 .invite-code {
   margin-top: 20px;
-  padding: 18px;
+  padding: 20px;
   text-align: center;
   background: #091d2e;
   border: 1px dashed #46c8ff;
@@ -339,9 +315,7 @@ button:active {
   word-break: break-word;
 }
 
-/* =========================
-   RIWAYAT
-========================= */
+/* RIWAYAT */
 
 .history-row {
   background: #0b2032;
@@ -356,12 +330,36 @@ button:active {
 }
 
 .history-row small {
-  color: #7f99ad;
+  color: #8197a9;
 }
 
-/* =========================
-   CHAT
-========================= */
+/* BONUS */
+
+.bonus-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  align-items: center;
+  padding: 15px 0;
+  border-bottom: 1px solid #284b66;
+}
+
+.bonus-row:last-child {
+  border-bottom: none;
+}
+
+.bonus-row p {
+  margin: 5px 0 0;
+  font-size: 12px;
+}
+
+.bonus-row > strong {
+  color: #46c8ff;
+  font-size: 12px;
+  text-align: right;
+}
+
+/* CHAT */
 
 .chat-panel {
   min-height: 500px;
@@ -386,17 +384,18 @@ button:active {
 }
 
 .chat-message p {
+  color: white;
   margin: 6px 0;
-  color: #ffffff;
 }
 
 .chat-message small {
-  color: #7f99ad;
+  color: #8197a9;
 }
 
 .chat-input {
   display: flex;
-  gap: 10px;
+  gap: 8px;
+  align-items: center;
 }
 
 .chat-input input {
@@ -405,12 +404,10 @@ button:active {
 
 .chat-input button {
   min-width: 55px;
-  padding: 10px;
+  margin: 0;
 }
 
-/* =========================
-   PROFIL
-========================= */
+/* PROFIL */
 
 .profile {
   text-align: center;
@@ -421,12 +418,12 @@ button:active {
   height: 90px;
   margin: 0 auto 15px;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 45px;
-  background: #0b2032;
   border: 2px solid #46c8ff;
+  background: #0b2032;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 42px;
 }
 
 .profile-stats {
@@ -439,21 +436,21 @@ button:active {
 .profile-stats div {
   background: #0b2032;
   border: 1px solid #284b66;
-  padding: 15px;
   border-radius: 15px;
+  padding: 15px;
 }
 
 .profile-stats strong {
   display: block;
-  color: #46c8ff;
   font-size: 24px;
+  color: #46c8ff;
 }
 
 .profile-stats span {
   display: block;
-  margin-top: 6px;
+  margin-top: 5px;
   color: #9db4c7;
-  font-size: 13px;
+  font-size: 12px;
 }
 
 .logout {
@@ -461,103 +458,76 @@ button:active {
   background: #c43e4b;
 }
 
-/* =========================
-   EMPTY
-========================= */
+/* EMPTY */
 
 .empty {
   text-align: center;
-  padding: 25px 10px;
+  padding: 30px 10px;
   color: #8197a9;
 }
 
-/* =========================
-   BOTTOM NAV
-========================= */
+/* MENU BAWAH */
 
 .bottom-nav {
   position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
   background: #0b1c2b;
   border-top: 1px solid #315a78;
-  z-index: 1000;
+  display: flex;
   overflow-x: auto;
+  z-index: 1000;
 }
 
 .bottom-nav button {
   min-width: 70px;
+  flex: 1;
   background: transparent;
-  border-radius: 0;
-  padding: 10px 4px;
   color: #91a8ba;
-  font-size: 11px;
+  border-radius: 0;
+  padding: 9px 5px;
+  margin: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-}
-
-.bottom-nav button.active {
-  color: #46c8ff;
+  font-size: 18px;
 }
 
 .bottom-nav button span {
   font-size: 10px;
 }
 
-/* =========================
-   MOBILE
-========================= */
+.bottom-nav button.active {
+  color: #46c8ff;
+}
 
-@media (max-width: 600px) {
+/* MOBILE */
+
+@media (max-width: 500px) {
   .header {
-    padding: 20px 16px;
-  }
-
-  .header h1 {
-    font-size: 21px;
+    padding: 18px 15px;
   }
 
   .main {
-    padding: 16px;
-  }
-
-  .cards {
-    gap: 10px;
+    padding: 15px;
   }
 
   .card {
-    min-height: 115px;
     padding: 14px;
+    min-height: 110px;
   }
 
   .card strong {
-    font-size: 28px;
+    font-size: 26px;
   }
 
-  .card span {
-    font-size: 12px;
+  .anggota-row {
+    align-items: flex-start;
   }
 
-  .panel {
-    padding: 16px;
-    border-radius: 17px;
-  }
-
-  .ranking-row {
-    font-size: 13px;
-  }
-
-  .bottom-nav {
-    display: flex;
-    justify-content: flex-start;
-  }
-
-  .bottom-nav button {
-    flex: 1;
+  .bonus-row {
+    align-items: flex-start;
   }
 }
