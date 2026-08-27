@@ -2,79 +2,188 @@
   box-sizing: border-box;
 }
 
-body {
+html,
+body,
+#root {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #0d1b2a;
-  color: white;
+  min-height: 100%;
 }
+
+body {
+  font-family: Arial, sans-serif;
+  background: #071522;
+  color: #ffffff;
+}
+
+/* =========================
+   LOGIN
+========================= */
+
+.login-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: #071522;
+}
+
+.login-box {
+  width: 100%;
+  max-width: 420px;
+  padding: 30px 22px;
+  background: #10283d;
+  border: 1px solid #315a78;
+  border-radius: 25px;
+  text-align: center;
+}
+
+.login-box h1 {
+  margin: 0;
+  font-size: 26px;
+}
+
+.login-box p {
+  color: #9db4c7;
+  margin-bottom: 30px;
+}
+
+.login-box h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+.login-box button {
+  width: 100%;
+  margin-bottom: 12px;
+}
+
+/* =========================
+   CONTAINER
+========================= */
 
 .container {
-  max-width: 700px;
+  width: 100%;
   min-height: 100vh;
-  margin: auto;
-  background: #0d1b2a;
-  padding-bottom: 90px;
+  background: #071522;
+  padding-bottom: 95px;
 }
 
+/* =========================
+   HEADER
+========================= */
+
 .header {
-  background: #172c45;
-  padding: 25px 20px;
-  border-bottom: 1px solid #284866;
+  padding: 22px 20px;
+  background: #10283d;
+  border-bottom: 1px solid #315a78;
 }
 
 .header h1 {
   margin: 0;
   font-size: 24px;
+}
+
+.header > p {
+  margin: 8px 0 15px;
+  color: #9db4c7;
+  font-size: 13px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 14px;
   font-weight: bold;
 }
 
-.header p {
-  margin: 8px 0 0;
-  color: #b7c5d6;
-  font-size: 15px;
+.role {
+  padding: 5px 10px;
+  border-radius: 20px;
+  font-size: 11px;
 }
 
+.role.ketua {
+  background: #d9a900;
+  color: #ffffff;
+}
+
+.role.admin {
+  background: #2489d8;
+  color: #ffffff;
+}
+
+.role.anggota {
+  background: #315a78;
+  color: #ffffff;
+}
+
+/* =========================
+   MAIN
+========================= */
+
 .main {
+  max-width: 800px;
+  margin: auto;
   padding: 20px;
 }
 
-.main h2 {
-  margin-top: 0;
+.welcome {
+  margin-bottom: 20px;
 }
+
+.welcome h2 {
+  margin: 0 0 5px;
+  font-size: 23px;
+}
+
+.welcome p {
+  margin: 0;
+  color: #9db4c7;
+}
+
+/* =========================
+   CARDS
+========================= */
 
 .cards {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
   margin-bottom: 20px;
 }
 
 .card {
-  background: #162b40;
-  border: 1px solid #315a7c;
-  border-radius: 20px;
-  padding: 20px;
   min-height: 130px;
+  padding: 18px;
+  background: #10283d;
+  border: 1px solid #315a78;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .card strong {
-  color: #55d6f2;
-  font-size: 38px;
+  font-size: 32px;
+  color: #46c8ff;
   margin-bottom: 10px;
 }
 
 .card span {
-  color: #c2cad4;
-  font-size: 16px;
+  font-size: 14px;
+  color: #b7c8d7;
 }
 
+/* =========================
+   PANEL
+========================= */
+
 .panel {
-  background: #162b40;
-  border: 1px solid #315a7c;
+  background: #10283d;
+  border: 1px solid #315a78;
   border-radius: 20px;
   padding: 20px;
   margin-bottom: 20px;
@@ -84,129 +193,371 @@ body {
   margin-top: 0;
 }
 
-.panel p {
-  color: #b7c5d6;
+.panel h3 {
+  margin-top: 0;
 }
 
-input {
+.panel p {
+  color: #b7c8d7;
+}
+
+/* =========================
+   INPUT & SELECT
+========================= */
+
+input,
+select {
   width: 100%;
-  padding: 15px;
+  padding: 14px;
   margin-bottom: 12px;
-  border: 1px solid #315a7c;
+  border: 1px solid #315a78;
   border-radius: 12px;
-  background: #0d1b2a;
+  background: #091d2e;
   color: white;
-  font-size: 16px;
+  font-size: 15px;
 }
 
 input::placeholder {
-  color: #8495a7;
+  color: #8197a9;
 }
+
+select option {
+  background: #10283d;
+}
+
+/* =========================
+   BUTTON
+========================= */
 
 button {
   border: none;
   border-radius: 12px;
-  padding: 14px;
-  font-size: 16px;
+  padding: 14px 16px;
+  background: #169bd5;
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: bold;
   cursor: pointer;
 }
 
-.panel > button {
-  width: 100%;
-  background: #1d9bf0;
-  color: white;
-  font-weight: bold;
+button:active {
+  transform: scale(0.98);
 }
 
-.list {
+.form-box > button {
+  width: 100%;
+}
+
+/* =========================
+   RANKING
+========================= */
+
+.ranking-row {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  background: #102337;
-  border: 1px solid #274965;
-  padding: 15px;
-  border-radius: 14px;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid #284b66;
+}
+
+.ranking-row:last-child {
+  border-bottom: none;
+}
+
+.ranking-row > span:first-child {
+  min-width: 40px;
+  font-size: 18px;
+}
+
+.ranking-row > strong {
+  flex: 1;
+}
+
+.ranking-row > div {
+  flex: 1;
+}
+
+.ranking-row p {
+  margin: 4px 0 0;
+  font-size: 13px;
+}
+
+.rank {
+  min-width: 45px;
+  font-size: 22px;
+}
+
+/* =========================
+   MENU KELOLA
+========================= */
+
+.manage-box button {
+  width: 100%;
   margin-top: 10px;
 }
 
-.list p {
-  margin: 5px 0 0;
+/* =========================
+   ANGGOTA
+========================= */
+
+.anggota-list {
+  margin-top: 20px;
 }
 
-.hapus {
-  background: #e74c3c;
-  color: white;
-  padding: 10px 14px;
+.anggota-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #0b2032;
+  border: 1px solid #284b66;
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 10px;
 }
+
+.anggota-row p {
+  margin: 5px 0 0;
+  font-size: 13px;
+}
+
+/* =========================
+   UNDANGAN
+========================= */
+
+.invite-code {
+  margin-top: 20px;
+  padding: 18px;
+  text-align: center;
+  background: #091d2e;
+  border: 1px dashed #46c8ff;
+  border-radius: 15px;
+}
+
+.invite-code h2 {
+  color: #46c8ff;
+  letter-spacing: 2px;
+  word-break: break-word;
+}
+
+/* =========================
+   RIWAYAT
+========================= */
+
+.history-row {
+  background: #0b2032;
+  border: 1px solid #284b66;
+  border-radius: 14px;
+  padding: 15px;
+  margin-bottom: 12px;
+}
+
+.history-row p {
+  margin: 6px 0;
+}
+
+.history-row small {
+  color: #7f99ad;
+}
+
+/* =========================
+   CHAT
+========================= */
+
+.chat-panel {
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-list {
+  flex: 1;
+  min-height: 300px;
+  max-height: 500px;
+  overflow-y: auto;
+  margin-bottom: 15px;
+}
+
+.chat-message {
+  background: #0b2032;
+  border-left: 3px solid #46c8ff;
+  border-radius: 10px;
+  padding: 12px;
+  margin-bottom: 10px;
+}
+
+.chat-message p {
+  margin: 6px 0;
+  color: #ffffff;
+}
+
+.chat-message small {
+  color: #7f99ad;
+}
+
+.chat-input {
+  display: flex;
+  gap: 10px;
+}
+
+.chat-input input {
+  margin: 0;
+}
+
+.chat-input button {
+  min-width: 55px;
+  padding: 10px;
+}
+
+/* =========================
+   PROFIL
+========================= */
+
+.profile {
+  text-align: center;
+}
+
+.profile-avatar {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 15px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 45px;
+  background: #0b2032;
+  border: 2px solid #46c8ff;
+}
+
+.profile-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin: 25px 0;
+}
+
+.profile-stats div {
+  background: #0b2032;
+  border: 1px solid #284b66;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.profile-stats strong {
+  display: block;
+  color: #46c8ff;
+  font-size: 24px;
+}
+
+.profile-stats span {
+  display: block;
+  margin-top: 6px;
+  color: #9db4c7;
+  font-size: 13px;
+}
+
+.logout {
+  width: 100%;
+  background: #c43e4b;
+}
+
+/* =========================
+   EMPTY
+========================= */
+
+.empty {
+  text-align: center;
+  padding: 25px 10px;
+  color: #8197a9;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
 
 .bottom-nav {
   position: fixed;
   bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
+  left: 0;
   width: 100%;
-  max-width: 700px;
-  display: flex;
-  justify-content: space-around;
-  background: #0d1b2a;
-  border-top: 1px solid #315a7c;
-  padding: 12px 5px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  background: #0b1c2b;
+  border-top: 1px solid #315a78;
+  z-index: 1000;
+  overflow-x: auto;
 }
 
 .bottom-nav button {
+  min-width: 70px;
   background: transparent;
-  color: #c2cad4;
-  padding: 8px 5px;
-  font-size: 13px;
-  flex: 1;
+  border-radius: 0;
+  padding: 10px 4px;
+  color: #91a8ba;
+  font-size: 11px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
 }
 
-.bottom-nav button:hover {
-  color: #55d6f2;
+.bottom-nav button.active {
+  color: #46c8ff;
 }
 
-/* MOBILE */
+.bottom-nav button span {
+  font-size: 10px;
+}
 
-@media (max-width: 480px) {
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
   .header {
-    padding: 25px 20px;
+    padding: 20px 16px;
   }
 
   .header h1 {
-    font-size: 24px;
-  }
-
-  .header p {
-    font-size: 15px;
+    font-size: 21px;
   }
 
   .main {
-    padding: 20px;
+    padding: 16px;
   }
 
   .cards {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 15px;
+    gap: 10px;
   }
 
   .card {
-    min-height: 145px;
-    padding: 20px;
+    min-height: 115px;
+    padding: 14px;
   }
 
   .card strong {
-    font-size: 42px;
+    font-size: 28px;
   }
 
   .card span {
-    font-size: 17px;
+    font-size: 12px;
   }
 
-  .cards .card:nth-child(3) {
-    grid-column: span 2;
+  .panel {
+    padding: 16px;
+    border-radius: 17px;
+  }
+
+  .ranking-row {
+    font-size: 13px;
+  }
+
+  .bottom-nav {
+    display: flex;
+    justify-content: flex-start;
   }
 
   .bottom-nav button {
-    font-size: 11px;
+    flex: 1;
   }
 }
